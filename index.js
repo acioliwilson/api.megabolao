@@ -56,31 +56,6 @@ app.get('/api/resultado/megasena', async (req, res) => {
     }
 });
 
-app.get('/api/proximo/megasena', async (req, res) => {
-    try {
-        const response = await axios.get(url, {
-            headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3',
-                maxRedirects: 5,
-                withCredentials: true
-            }
-        });
-        const $ = cheerio.load(response.data);
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        const resultadoInfo = {
-            acumulado: (( $('div.banner-nextdraw__is-jackpot').text().trim() === 'Acumulada!' )?true:false),
-            tituloModalidade: 'Mega-Sena',
-            numeroProxConcurso: Number($('div.banner-nextdraw__draw strong').text().trim()),
-            dataProxSorteio: (( $('div.banner-nextdraw__draw-date').text().trim() === 'Sorteio:Hoje' )?'Sorteio Hoje':$('div.banner-nextdraw__draw-date').text().trim()),
-            estimativaPremio: $('div.banner-nextdraw__prize__wrap').text().trim(),
-        };
-        res.json(resultadoInfo);
-    } catch (error) {
-        console.error('Erro ao fazer a requisição:', error);
-        res.status(500).json({ error: 'Erro interno do servidor' });
-    }
-});
-
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
