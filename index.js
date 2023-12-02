@@ -64,11 +64,11 @@ app.get('/api/resultado/duplasena', async (req, res) => {
         const html = response.data;
         const $ = cheerio.load(html);
 
-        const resultadoInfo = {
+        const resultadoInfo2 = {
             tituloModalidade: $('div.result__title h2').text().trim()
         };
 
-        res.json(resultadoInfo);
+        res.json(resultadoInfo2);
     } catch (error) {
         console.error('Erro ao fazer a requisição:', error);
         res.status(500).json({ error: 'Erro interno do servidor' });
