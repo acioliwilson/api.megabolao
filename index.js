@@ -10,16 +10,16 @@ app.use(cors());
 
 const url = 'https://www.megaloterias.com.br/mega-sena/resultados';
 
-const apiKey = process.env.API_KEY;
-app.use((req, res, next) => {
-    const userApiKey = req.headers['x-api-key'];
+// const apiKey = process.env.API_KEY;
+// app.use((req, res, next) => {
+//     const userApiKey = req.headers['x-api-key'];
 
-    if (!userApiKey || userApiKey !== apiKey) {
-        return res.status(401).json({ error: 'Chave de API inválida' });
-    }
+//     if (!userApiKey || userApiKey !== apiKey) {
+//         return res.status(401).json({ error: 'Chave de API inválida' });
+//     }
 
-    next();
-});
+//     next();
+// });
 
 app.get('/api/resultado/megasena', async (req, res) => {
     try {
