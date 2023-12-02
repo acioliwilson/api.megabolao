@@ -32,6 +32,7 @@ app.get('/api/resultado/megasena', async (req, res) => {
             concurso: Number($('div.result__draw strong').text().trim()),
             dataSorteio: $('div.result__draw-date strong').text().trim(),
             localSorteio: $('div.text-sm-left strong').text().trim(),
+            valorPremiado: $('div.result__prize__wrap span.result__prize__value').text().trim(),
             numerosSorteados: $('div.lot-bg-light span').slice(0, 6).map(function() {
                 return $(this).text().trim();
             }).get(),
