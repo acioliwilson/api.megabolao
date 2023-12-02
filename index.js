@@ -10,16 +10,16 @@ app.use(cors());
 
 const url = 'https://www.megaloterias.com.br/mega-sena/resultados';
 
-// const apiKey = process.env.API_KEY;
-// app.use((req, res, next) => {
-//     const userApiKey = req.headers['x-api-key'];
+const apiKey = process.env.API_KEY;
+app.use((req, res, next) => {
+    const userApiKey = req.headers['x-api-key'];
 
-//     if (!userApiKey || userApiKey !== apiKey) {
-//         return res.status(401).json({ error: 'Chave de API inválida' });
-//     }
+    if (!userApiKey || userApiKey !== apiKey) {
+        return res.status(401).json({ error: 'Chave de API inválida' });
+    }
 
-//     next();
-// });
+    next();
+});
 
 app.get('/api/resultado/megasena', async (req, res) => {
     try {
@@ -51,24 +51,6 @@ app.get('/api/resultado/megasena', async (req, res) => {
         };
 
         res.json(resultadoInfo);
-    } catch (error) {
-        console.error('Erro ao fazer a requisição:', error);
-        res.status(500).json({ error: 'Erro interno do servidor' });
-    }
-});
-
-const url2 = 'https://www.megaloterias.com.br/dupla-sena/resultados';
-app.get('/api/resultado/duplasena', async (req, res) => {
-    try {
-        const response = await axios.get(url2);
-        const html = response.data;
-        const $ = cheerio.load(html);
-
-        const resultadoInfo2 = {
-            tituloModalidade: $('div.result__title h2').text().trim()
-        };
-
-        res.json(resultadoInfo2);
     } catch (error) {
         console.error('Erro ao fazer a requisição:', error);
         res.status(500).json({ error: 'Erro interno do servidor' });
