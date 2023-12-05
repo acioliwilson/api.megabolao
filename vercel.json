@@ -1,55 +1,24 @@
 {
     "version": 2,
-    "builds": [
-        {
-            "src": "index.js",
-            "use": "@vercel/node"
-        }
-    ],
     "routes": [
-        {
-            "src": "/api/resultado/megasena",
-            "methods": ["GET"],
-            "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET",
-                "Access-Control-Allow-Headers": "Content-Type",
-                "Access-Control-Allow-Max-Age": "86400"
-            },
-            "dest": "index.js"
-        },
-        {
-            "src": "/api/resultado/megasena/(.*)",
-            "methods": ["GET"],
-            "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET",
-                "Access-Control-Allow-Headers": "Content-Type",
-                "Access-Control-Allow-Max-Age": "86400"
-            },
-            "dest": "index.js"
-        },
-        {
-            "src": "/api/resultado/duplasena",
-            "methods": ["GET"],
-            "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET",
-                "Access-Control-Allow-Headers": "Content-Type",
-                "Access-Control-Allow-Max-Age": "86400"
-            },
-            "dest": "index.js"
-        },
-        {
-            "src": "/api/resultado/duplasena/(.*)",
-            "methods": ["GET"],
-            "headers": {
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "GET",
-                "Access-Control-Allow-Headers": "Content-Type",
-                "Access-Control-Allow-Max-Age": "86400"
-            },
-            "dest": "index.js"
-        }
+      {
+        "handle": "src/api/resultado/megasena.js",
+        "methods": ["GET"],
+        "src": "/api/resultado/megasena"
+      },
+      {
+        "handle": "src/api/resultado/duplasena.js",
+        "methods": ["GET"],
+        "src": "/api/resultado/duplasena"
+      },
+      {
+        "src": "/api/resultado/(.*)",
+        "headers": [
+          { "key": "Access-Control-Allow-Origin", "value": "*" },
+          { "key": "Access-Control-Allow-Methods", "value": "GET" }
+        ],
+        "continue": true
+      },
+      { "src": "/(.*)", "dest": "/index.html" }
     ]
-}
+  }  
