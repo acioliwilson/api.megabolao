@@ -6,7 +6,13 @@ const cors = require('cors');
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+const corsOptions = {
+    origin: '*',
+    methods: 'GET',
+};
+
+app.use(cors(corsOptions));
 
 const url = 'https://www.megaloterias.com.br/mega-sena/resultados';
 
