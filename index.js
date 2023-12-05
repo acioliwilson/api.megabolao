@@ -7,12 +7,18 @@ const cors = require('cors');
 const app = express();
 app.use(express.json());
 
-const corsOptions = {
-    origin: '*',
-    methods: 'GET',
-};
-
-app.use(cors(corsOptions));
+const allowedOrigins = '*';
+app.use(cors({
+    origin: allowedOrigins,
+    methods: 'GET, POST, PUT, DELETE, OPTIONS',
+    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept'
+}));
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
 
 const url = 'https://www.megaloterias.com.br/mega-sena/resultados';
 
