@@ -11,7 +11,7 @@ const allowedOrigins = '*';
 app.use(cors({
     origin: allowedOrigins,
     methods: 'GET',
-    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept'
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'x-api-key'], // Include 'x-api-key' in allowedHeaders
 }));
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
